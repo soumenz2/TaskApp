@@ -1,0 +1,138 @@
+.task-box-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .task-box-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .task-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .priority-text{
+    font-size: 8px;
+  }
+  
+  .high-priority {
+    background-color: #ff6f61;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+  
+  .task-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    max-height: 48px; /* Limit to two lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .task-box-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #6c757d;
+  }
+  
+  .task-checklist {
+    margin-top: 10px;
+  }
+  
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  
+  .checklist-item input {
+    margin-right: 10px;
+  }
+  
+  .task-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .task-date {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 8px;
+  }
+  
+  .task-status-container {
+    display: flex;
+  }
+  
+  .task-status {
+    background-color: #e0e0e0;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 8px;
+    margin-left: 5px;
+  }
+  .priority-label {
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .high-priority {
+    background-color: #ff4d4d; /* Red for high priority */
+    height: 0px;
+    width: 0px;
+    border-radius: 30%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  .low-priority {
+    background-color: #28a745; /* Green for low priority */
+    height: 0px;
+    width: 0px;
+    border-radius: 30%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .medium-priority{
+    background-color:#faf606;
+    height: 0px;
+    width: 0px;
+    border-radius: 30%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .task-box-container {
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
