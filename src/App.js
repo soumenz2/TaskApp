@@ -9,7 +9,7 @@ import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import Settingspage from './pages/Settings/Settingspage';
 
 function App() {
-  const [loggedin,sertLoggedIn]=useState(true)
+  const [loggedin,sertLoggedIn]=useState(false)
   if(!loggedin){
     return(
      
