@@ -17,17 +17,17 @@
     align-items: center;
     margin-bottom: 10px;
   }
+  .priority-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+  }
   .priority-text{
     font-size: 8px;
   }
   
-  .high-priority {
-    background-color: #ff6f61;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-  }
   
   .task-title {
     font-size: 18px;
@@ -49,7 +49,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     color: #6c757d;
   }
   
@@ -57,7 +57,7 @@
     margin-top: 10px;
   }
   
-  .checklist-item {
+  .checklist-item1 {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
@@ -66,7 +66,7 @@
     padding: 8px;
   }
   
-  .checklist-item input {
+  .checklist-item1 input {
     margin-right: 10px;
   }
   
@@ -78,10 +78,11 @@
   }
   
   .task-date {
-    background-color: #f0f0f0;
+    background-color: #db0909;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 8px;
+    color: white;
   }
   
   .task-status-container {
@@ -94,39 +95,27 @@
     border-radius: 5px;
     font-size: 8px;
     margin-left: 5px;
+    cursor: pointer;
   }
   .priority-label {
-    padding: 5px 10px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
   }
   
   .high-priority {
     background-color: #ff4d4d; /* Red for high priority */
-    height: 0px;
-    width: 0px;
-    border-radius: 30%;
-    display: inline-block;
-    margin-right: 8px;
-  }
   
+  }
   .low-priority {
     background-color: #28a745; /* Green for low priority */
-    height: 0px;
-    width: 0px;
-    border-radius: 30%;
-    display: inline-block;
-    margin-right: 8px;
+  
   }
   .medium-priority{
     background-color:#faf606;
-    height: 0px;
-    width: 0px;
-    border-radius: 30%;
-    display: inline-block;
-    margin-right: 8px;
+
   }
   .task-box-container {
     border-radius: 8px;
@@ -135,4 +124,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
   }
-  
+  .delete-option{
+    color: #db0909;
+  }

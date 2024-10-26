@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { TfiLayers } from "react-icons/tfi";
-import './TaskBox.css'; // Import styles for the task box
+import { HiDotsHorizontal } from "react-icons/hi";
+import './TaskBox.css'; 
+import DeleteModal from '../ModalPage/DeleteModal';
 
 const TaskBox = ({ task }) => {
   const [checklistVisible, setChecklistVisible] = useState(false);
+  const [isDeleteModalOpen,setDeleteModalOpen]=useState(false)
+  const OpenDeleteModal=()=>{
+    setDeleteModalOpen(true)
+  }
+  const onCloseDeleteModal=()=>{
+    setDeleteModalOpen(false)
+  }
+
 
   // Toggle checklist visibility
   const toggleChecklist = () => {
@@ -15,7 +25,9 @@ const TaskBox = ({ task }) => {
 
   return (
     <div className="task-box-container">
-        <span
+        <div className="priority-header">
+            <div className="">
+            <span
                   className={`priority-label ${task.priority === 'HIGH PRIORITY' 
                     ? 'high-priority' 
                     : task.priority === 'MODERATE PRIORITY' 
@@ -24,12 +36,34 @@ const TaskBox = ({ task }) => {
                   
                 ></span>
           <span className='priority-text'>{task.priority}</span>
+            </div>
+            <div className="">
+                
+                <label class="dropdown">
+
+<div class="dd-button">
+<HiDotsHorizontal />
+</div>
+
+<input type="checkbox" class="dd-input" id="test" />
+
+<ul class="dd-menu">
+  <li>Edit</li>
+  <li>Share</li>
+  <li className='delete-option' onClick={OpenDeleteModal}> Delete</li>
+  
+ 
+</ul>
+
+</label>
+                 
+            </div>
+        </div>
+ 
           <h4 className="task-title">{task.title}</h4>
        
       <div className="task-box-header">
        
-       
-        
         <p className="checklist-info">Checklist ({completedTasksCount}/{task.checklist.length})</p>
         <div className="task-box-icons">
           <button className="toggle-btn" onClick={toggleChecklist}>
@@ -42,7 +76,7 @@ const TaskBox = ({ task }) => {
         <div className="task-checklist">
           <p>Checklist ({task.checklist.filter(item => item.done).length}/{task.checklist.length})</p>
           {task.checklist.map((item) => (
-            <div className="checklist-item" key={item.id}>
+            <div className="checklist-item1" key={item.id}>
               <input type="checkbox" checked={item.done} readOnly />
               <label>{item.text}</label>
             </div>
@@ -58,6 +92,9 @@ const TaskBox = ({ task }) => {
           ))}
         </div>
       </div>
+      {
+        isDeleteModalOpen && <DeleteModal onCloseDeleteModal={onCloseDeleteModal} />
+      }
     </div>
   );
 };

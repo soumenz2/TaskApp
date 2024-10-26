@@ -7,21 +7,16 @@ import Sidebar from './pages/Sidebar/sidebar';
 import BoardPage from './pages/Borad/BoardPage';
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import Settingspage from './pages/Settings/Settingspage';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [loggedin,sertLoggedIn]=useState(true)
-  if(!loggedin){
-    return(
-     
-         <LoginSignUp />
-    
-      
-
-    )
-  }
+  
+  const userToken=useSelector((state)=>state.user.tokenId)
+  
+ 
   return (
     <Router>
-      { loggedin? (
+      { userToken != null ? (
          <div className='container'>
                <Sidebar />
              <div className='main-content'>

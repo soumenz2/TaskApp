@@ -6,8 +6,14 @@ import { IoMdLogOut } from "react-icons/io";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { LuDatabase } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
+import { clearToken } from '../../redux/userReducer';
+import { useDispatch } from 'react-redux';
 
 const Sidebar = () => {
+  const dispatch=useDispatch()
+  const logout=()=>{
+    dispatch(clearToken())
+  }
   return (
     <div className="sidenav">
         <div className="header">
@@ -42,7 +48,7 @@ const Sidebar = () => {
   </div>
  
     
-    <div className="logout-button" >
+    <div className="logout-button" onClick={logout}>
     <IoMdLogOut />
        <h3>LOGOUT</h3> 
         </div>

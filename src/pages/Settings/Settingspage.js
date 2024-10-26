@@ -61,7 +61,7 @@ const Settingspage = () => {
   return (
     <div className=''>
       <ToastContainer />
-      <form className="form_container" onSubmit={registerformik.handleSubmit} method="POST">
+      <form className="form_container2" onSubmit={registerformik.handleSubmit} method="POST">
             <div className="title_container">
               <p className="title">Settings</p>
             </div>

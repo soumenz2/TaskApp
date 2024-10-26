@@ -5,6 +5,10 @@ import { SlArrowDown } from "react-icons/sl";
 import { TfiLayers } from "react-icons/tfi";
 import { FaPlus } from "react-icons/fa6";
 import TaskBox from './TaskBox';
+import TaskModal from '../ModalPage/TaskModal';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { FaLessThanEqual } from 'react-icons/fa';
+import AddPeopleModal from '../ModalPage/AddPeople';
 function getDate() {
   const today = new Date();
   const month = today.getMonth() + 1;
@@ -42,6 +46,25 @@ const tasks = [
 
 const BoardPage = () => {
   const [currentDate, setCurrentDate] = useState(getDate());
+  const [isTaskModalOpen,setIsTaskModalOpen]=useState(false)
+  const [isAddPeopleModalOpen,setIsAddPeopleModalOpen]=useState(false)
+
+
+
+  const isOpen=()=>{
+    setIsTaskModalOpen(true)
+  }
+  const onClose=()=>{
+    setIsTaskModalOpen(false)
+  }
+  const isAddPeopleOpen=()=>{
+    setIsAddPeopleModalOpen(true)
+  }
+  const onAddPeopleClose=()=>{
+    setIsAddPeopleModalOpen(false)
+  }
+  
+
   return (
     <div>
       <div className="section1">
@@ -56,9 +79,9 @@ const BoardPage = () => {
       <div className="sub-section">
         <div className=""><h2 className="">Board</h2></div>
         <div className="">
-        <button className="button1">
+        <button className="button1" onClick={isAddPeopleOpen}>
         <BsPeople />
-          <p className="">Add People</p>
+          <p className="btn-text">Add People</p>
         </button>
         </div>
        
@@ -66,7 +89,7 @@ const BoardPage = () => {
       <div className="sub-section1">
         
        
-        <label class="dropdown">
+        <label className="dropdown">
 
   <div class="dd-button">
   This Week
@@ -78,7 +101,7 @@ const BoardPage = () => {
     <li>Today</li>
     <li>This Week</li>
     <li>This Month</li>
-    <li class="divider"></li>
+    
    
   </ul>
   
@@ -90,9 +113,7 @@ const BoardPage = () => {
         <div className="section-box">
           <div className="hedaer-box">
             <div className=""><h4 className="">Backlog</h4></div>
-            <div className="">
-          <TfiLayers />
-          </div>
+            <button type="" className="button-header"><TfiLayers /></button>
           </div>
           {tasks.map((task, index) => (
             <TaskBox key={task.id} task={task} />
@@ -104,29 +125,33 @@ const BoardPage = () => {
         <div className="hedaer-box">
             <div className=""><h4 className="">To Do</h4></div>
             <div className="">
-            <FaPlus />
-          <TfiLayers />
+              <button type="" className="button-header" onClick={isOpen}><FaPlus /></button>
+            <button type="" className="button-header"><TfiLayers /></button>
+          
           </div>
           </div>
         </div>
         <div className="section-box">
         <div className="hedaer-box">
             <div className=""><h4 className="">In Progrss</h4></div>
-            <div className="">
-              
-          <TfiLayers />
-          </div>
+            <button type="" className="button-header"><TfiLayers /></button>
           </div>
         </div>
         <div className="section-box">
         <div className="hedaer-box">
             <div className=""><h4 className="">Completed</h4></div>
             <div className="">
-          <TfiLayers />
+            <button type="" className="button-header"><TfiLayers /></button>
           </div>
           </div>
         </div>
       </div>
+      {
+        isTaskModalOpen && <TaskModal onClose={onClose} />
+      }
+      {
+        isAddPeopleModalOpen && <AddPeopleModal onAddPeopleClose={onAddPeopleClose} />
+      }
     </div>
   )
 }
