@@ -8,14 +8,24 @@ import { LuDatabase } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
 import { clearToken } from '../../redux/userReducer';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = () => {
   const dispatch=useDispatch()
   const logout=()=>{
+   
+ 
+   
     dispatch(clearToken())
+    setTimeout(() => {
+      toast.success("Logout Sucessfully.....")
+     },3000);
+ 
   }
   return (
     <div className="sidenav">
+      <ToastContainer />
         <div className="header">
          <DiMagento />
         <h3>Pro manage</h3>

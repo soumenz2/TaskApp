@@ -9,10 +9,14 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CiUser } from "react-icons/ci";
 import './SettingsPage.css'
+import { updateUser } from '../../api/apiClient';
+import { useDispatch } from 'react-redux';
+import { clearToken } from '../../redux/userReducer';
 
 const Settingspage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch=useDispatch()
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -25,7 +29,7 @@ const Settingspage = () => {
     password: Yup.string()
       .required("Enter Your Password")
       .min(6, "Password must be at least 6 characters long"),
-    confirmPassword: Yup.string()
+    newPassword: Yup.string()
       .required("Enter Your Password")
       .min(6, "Password must be at least 6 characters long")
 
@@ -36,24 +40,34 @@ const Settingspage = () => {
       username: "",
       email:"",
       password: "",
-      confirmPassword:""
+      newPassword:""
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
-      
       try {
-        
-        
-
+        const userData = {
+          username: values.username,
+          email: values.email,
+          oldPassword: values.password, 
+          newPassword: values.confirmPassword 
+        };
+  
+        const response = await updateUser(userData); 
+  
+        if (response.msg) {
+          toast.success(response.msg);
+          console.log('User updated successfully:', response);
+          dispatch(clearToken())
+        } else {
+          toast.error('Update failed');
+        }
       } catch (err) {
         if (err.response) {
           const errorMessage = err.response.data.msg;
-          toast.error(errorMessage)
+          toast.error(errorMessage);
           console.log(errorMessage);
-         
         } else {
-          
-          toast.error("Login failed")
+          toast.error("Update failed");
         }
       }
     }
@@ -61,7 +75,7 @@ const Settingspage = () => {
   return (
     <div className=''>
       <ToastContainer />
-      <form className="form_container2" onSubmit={registerformik.handleSubmit} method="POST">
+      <form className="form_container2" onSubmit={registerformik.handleSubmit} method="PUT">
             <div className="title_container">
               <p className="title">Settings</p>
             </div>
@@ -119,11 +133,11 @@ const Settingspage = () => {
                 <span className="icon"><RiLockPasswordLine /></span>
                 <input
                   placeholder="New Password"
-                  name="confirm_password"
-                  type={showPassword ? "text" : "password"}
+                  name="newPassword"
+                  type={showConfirmPassword ? "text" : "password"}
                   className="input_field"
                   id="confirm_password_field"
-                  value={registerformik.values.confirmPassword}
+                  value={registerformik.values.newPassword}
                   onChange={registerformik.handleChange}
                   onBlur={registerformik.handleBlur}
                 />

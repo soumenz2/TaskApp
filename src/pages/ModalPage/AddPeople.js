@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './Addpeople.css';
 import { RxCross2 } from "react-icons/rx";
+import { addEmail } from '../../api/apiClient';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const AddPeopleModal = ({  onAddPeopleClose }) => {
-    const [email,setEmail]=useState(null)
+    const [email,setEmail]=useState('')
     const [isValid, setIsValid] = useState(true);
     const [openSecondModal,setOpenSecondaryModal]=useState(false)
 
@@ -20,24 +23,32 @@ const AddPeopleModal = ({  onAddPeopleClose }) => {
           setIsValid(true); 
         } else {
           setIsValid(false); 
-          setEmail(null)
+          setEmail('')
         }
       };
-  const handleSubmit = () => {
-    if(isValid){
-        setOpenSecondaryModal(true)
-    }
-   
-   console.log("clicked")
-  
+      const handleAddEmail = async () => {
+        if (!isValid) {
+          toast.error('Please enter a valid email.');
+          return;
+      }
+        const response = await addEmail({ email });
+      
+        if (response.message === 'Email added') {
+          toast.success('Email added successfully')
+          setOpenSecondaryModal(true); 
+           
 
-
-  };
+          console.log('Email added successfully');
+        } else {
+          console.error('Error:', response.message);
+        }
+      };
 
 
 
   return (
     <div className="modal-overlay">
+      <ToastContainer />
         {
            openSecondModal?(
            <div className="card1">
@@ -59,7 +70,7 @@ const AddPeopleModal = ({  onAddPeopleClose }) => {
               </div>
               <div className="card-button-wrapper1">
                 <button className="card-button-cancel secondary" onClick={onAddPeopleClose}>Cancel</button>
-                <button className="card-button-Add primary" onClick={handleSubmit}>Add Email</button>
+                <button className="card-button-Add primary" onClick={handleAddEmail}>Add Email</button>
               </div>
             
             </div>

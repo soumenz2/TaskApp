@@ -8,10 +8,14 @@ import BoardPage from './pages/Borad/BoardPage';
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import Settingspage from './pages/Settings/Settingspage';
 import { useSelector } from 'react-redux';
+import UserRouter from './UserRouter';
 
 function App() {
   
   const userToken=useSelector((state)=>state.user.tokenId)
+  if(window.location.pathname.startsWith('/task')){
+    return (<UserRouter />)
+  }
   
  
   return (

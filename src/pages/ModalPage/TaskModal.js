@@ -1,70 +1,113 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './TaskModal.css';
+import { createTask } from '../../api/apiClient';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { getEmail } from '../../api/apiClient';
 
 const TaskModal = ({  onClose }) => {
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('');
-  const [checklist, setChecklist] = useState(['']);
+  const [checklist, setChecklist] = useState([]);
   const [dueDate, setDueDate] = useState('');
+  const [status,setStatus]=useState('');
   const [tasks, setTasks] = useState([{ name: '', checked: false }]);
   const [totalChecklist,sertTotalCheckList]=useState(0)
-  // Function to handle adding a new task to the checklist
-  const handleAddTask = () => {
-    setChecklist([...checklist, '']);
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [emails,setEmails] = useState([]);
+  const [assignee, setAssignee] = useState('');
+ 
+useEffect(() => {
+  const fetchEmails = async () => {
+    const response = await getEmail();
+    if (response.message === 'Data Fetched Successfully') {
+      setEmails(response.email);
+    } else {
+      console.error(response.message);
+    }
   };
 
-  // Function to handle change in each checklist item
+  fetchEmails();
+}, []);
+
+const toggleDropdown = () => setIsOpen(!isOpen);
+
+const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+};
+
+  const handleAddTask = () => {
+    setChecklist([...checklist, { title: '', isDone: false }]);
+  };
+
+
   const handleTaskChange = (index, value) => {
     const updatedChecklist = [...checklist];
-    updatedChecklist[index] = value;
+    updatedChecklist[index].title = value;
     setChecklist(updatedChecklist);
   };
   const handleCheckboxChange = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].checked = !updatedTasks[index].checked;
-    setTasks(updatedTasks);
+    const updatedChecklist = [...checklist];
+    updatedChecklist[index].isDone = !updatedChecklist[index].isDone;
+    setChecklist(updatedChecklist);
   };
 
-  // Function to handle deleting a checklist item
   const handleDeleteTask = (index) => {
     const updatedChecklist = checklist.filter((_, i) => i !== index);
     setChecklist(updatedChecklist);
   };
 
-  // Function to handle due date change (for simplicity, using input type="date")
+
   const handleDueDateChange = (e) => {
     setDueDate(e.target.value);
   };
+  
+  const handleAssigneeSelect = (email) => {
+    setAssignee(email);
+    setIsOpen(false); // Close dropdown after selecting
+  };
 
-  // Function to handle the form submission (POST method)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const allFilled=checklist.every(task => task.title.trim() !== '');
+    if(!allFilled){
+      toast.error('Please fill in all checklist items before submitting.');
+      return
+    }
 
-    // Create the task data object
     const taskData = {
-      title,
       priority,
-      checklist: checklist.filter(task => task.trim() !== ""), // Exclude empty tasks
-      dueDate,
+      title,
+      checklist,
+      date: dueDate || '',
+      status: 'To-Do', 
+      assignee
     };
 
     try {
-      // Example POST request
-      const response = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskData),
-      });
+      console.log(taskData)
+      const response = await createTask(taskData);
+      
+        if (response.message === 'Task Created') {
+          setTimeout(() => {
+            toast.success('Task added successfully')
+           },3000);
+          
+          setTitle('');
+          setPriority('');
+          setChecklist([]);
+          setDueDate(null);
+          setAssignee('')
+          onClose()
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Task created successfully:', result);
-        onClose(); // Close the modal after success
-      } else {
-        console.error('Failed to create task:', response.statusText);
-      }
+          console.log('Email added successfully');
+        } else {
+          console.error('Error:', response.message);
+        }
     } catch (error) {
       console.error('Error while creating task:', error);
     }
@@ -74,9 +117,10 @@ const TaskModal = ({  onClose }) => {
 
   return (
     <div className="modal-overlay">
+      <ToastContainer />
       <div className="modal-content">
         
-        <form onSubmit={handleSubmit}>
+       
           <label>Title *</label>
           <input
             type="text"
@@ -87,7 +131,7 @@ const TaskModal = ({  onClose }) => {
           />
 
           
-          <div className="priority-options">
+          <div className="priority-options" >
           <label>Select Priority *</label>
             <button
               type="button"
@@ -123,18 +167,48 @@ const TaskModal = ({  onClose }) => {
               LOW PRIORITY
             </button>
           </div>
+          {
+            checklist.length>0 ? (
+              <div className="dropdown" >
+            <label htmlFor="assign-to">Assign to</label>
+            <input
+                type="text"
+                id="assign-to"
+                placeholder="Select or search..."
+                value={assignee}
+                onClick={toggleDropdown}
+                onChange={handleSearchChange}
+            />
+            {isOpen && (
+                <div className="dropdown-content" >
+                    {emails.map((emailData, index) => (
+                        <div className="dropdown-item" key={index}>
+                            <div className="user-info">
+                                <span className="user-avatar">
+                                    {emailData?.email?.slice(0, 2).toUpperCase()}
+                                </span>
+                                <span className="user-email">{emailData?.email}</span>
+                            </div>
+                            <button className="assign-btn" onClick={() => handleAssigneeSelect(emailData.email)}>Assign</button>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+            ):null
+          }
 
           <label>Checklist (0/{checklist.length}) *</label>
           {checklist.map((task, index) => (
             <div key={index} className="checklist-item">
                    <input
                 type="checkbox"
-                checked={task.checked}
+                checked={task.isDone}
                 onChange={() => handleCheckboxChange(index)}
               />
               <input
                 type="text"
-                value={task}
+                value={task.title}
                 onChange={(e) => handleTaskChange(index, e.target.value)}
                 placeholder="Add a task"
               />
@@ -143,7 +217,7 @@ const TaskModal = ({  onClose }) => {
                 className="delete-task"
                 onClick={() => handleDeleteTask(index)}
               >
-                🗑
+               <MdOutlineDeleteForever />
               </button>
             </div>
           ))}
@@ -164,7 +238,7 @@ const TaskModal = ({  onClose }) => {
             type="date"
             value={dueDate}
             onChange={handleDueDateChange}
-            required
+           
           />
 
             </div>
@@ -179,8 +253,9 @@ const TaskModal = ({  onClose }) => {
             </div>
             <div className="">
                    <button
-              type="submit"
+              
               className="save-btn"
+              onClick={handleSubmit}
             >
               Save
             </button>
@@ -188,7 +263,7 @@ const TaskModal = ({  onClose }) => {
       
          
           </div>
-        </form>
+   
       </div>
     </div>
   );

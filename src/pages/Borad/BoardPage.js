@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './BoardPage.css'
 import { BsPeople } from "react-icons/bs";
 import { SlArrowDown } from "react-icons/sl";
@@ -9,6 +9,7 @@ import TaskModal from '../ModalPage/TaskModal';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { FaLessThanEqual } from 'react-icons/fa';
 import AddPeopleModal from '../ModalPage/AddPeople';
+import { getTasks } from '../../api/apiClient';
 function getDate() {
   const today = new Date();
   const month = today.getMonth() + 1;
@@ -17,38 +18,71 @@ function getDate() {
   return `${month}/${date}/${year}`;
   
 }
-const tasks = [
-  {
-    id: 1,
-    priority: "HIGH PRIORITY",
-    title: "Hero section",
-    checklist: [
-      { id: 1, text: "Task to be done", done: true },
-      { id: 2, text: "Task to be done", done: false },
-      { id: 3, text: "Task to be done ede lorem Ipsum is a Dummy text t", done: false },
-    ],
-    date: "Feb 10th",
-    status: ["Progress", "To-Do", "Done"],
-  },
-  {
-    id: 2,
-    priority: "MODERATE PRIORITY",
-    title: "Typography change",
-    checklist: [
-      { id: 1, text: "Task to be done", done: false },
-      { id: 2, text: "Task to be done", done: false },
-    ],
-    date: "Feb 12th",
-    status: ["To-Do"],
-  },
-];
+// const tasks = [
+//   {
+//     id: 1,
+//     priority: "HIGH PRIORITY",
+//     title: "Hero section",
+//     checklist: [
+//       { id: 1, text: "Task to be done", done: true },
+//       { id: 2, text: "Task to be done", done: false },
+//       { id: 3, text: "Task to be done ede lorem Ipsum is a Dummy text t", done: false },
+//     ],
+//     date: "Feb 10th",
+//     status: ["Progress", "To-Do", "Done"],
+//   },
+//   {
+//     id: 2,
+//     priority: "MODERATE PRIORITY",
+//     title: "Typography change",
+//     checklist: [
+//       { id: 1, text: "Task to be done", done: false },
+//       { id: 2, text: "Task to be done", done: false },
+//     ],
+//     date: "Feb 12th",
+//     status: ["To-Do"],
+//   },
+// ];
 
 
 const BoardPage = () => {
   const [currentDate, setCurrentDate] = useState(getDate());
   const [isTaskModalOpen,setIsTaskModalOpen]=useState(false)
   const [isAddPeopleModalOpen,setIsAddPeopleModalOpen]=useState(false)
+  const [tasks, setTasks] = useState({ todo: [], backLog: [], inProgress: [], done: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [filterValue, setFilterValue] = useState("WEEK"); 
 
+
+  const fetchTasks = async (filter) => {
+    setLoading(true);
+    try {
+      const response = await getTasks(filter); // Pass the filter to your API call
+      if (response?.message === "Data Fetched Successfully") {
+        const fetchedTasks = response.task; 
+        console.log(fetchedTasks)
+        const categorizedTasks = {
+          todo: fetchedTasks.todo || [],
+          backlog: fetchedTasks.backLog || [],
+          inProgress: fetchedTasks.inProgress || [],
+          completed: fetchedTasks.done || []
+        };
+        setTasks(categorizedTasks);
+        console.log(categorizedTasks)
+      } else {
+        setError(response);
+      }
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks(filterValue);
+  }, [filterValue]); 
 
 
   const isOpen=()=>{
@@ -62,6 +96,24 @@ const BoardPage = () => {
   }
   const onAddPeopleClose=()=>{
     setIsAddPeopleModalOpen(false)
+  }
+  const handleFilterChange = (e) => {
+    setFilterValue(e.target.value);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-overlay">
+    <div className="loading-container">
+      <p>Loading tasks...</p>
+      <div className="spinner"></div>
+    </div>
+  </div>
+    );
+  }
+
+  if (error) {
+    return <p>Error loading tasks: {error.message || 'Something went wrong'}</p>;
   }
   
 
@@ -91,16 +143,16 @@ const BoardPage = () => {
        
         <label className="dropdown">
 
-  <div class="dd-button">
+  <div className="dd-button">
   This Week
   </div>
 
-  <input type="checkbox" class="dd-input" id="test" />
+  <input type="checkbox" className="dd-input" id="test" />
 
-  <ul class="dd-menu">
-    <li>Today</li>
-    <li>This Week</li>
-    <li>This Month</li>
+  <ul className="dd-menu">
+    <li onClick={() => handleFilterChange({ target: { value: "TODAY" } })}>Today</li>
+    <li onClick={() => handleFilterChange({ target: { value: "WEEK" } })}>This Week</li>
+    <li onClick={() => handleFilterChange({ target: { value: "MONTH" } })}>This Month</li>
     
    
   </ul>
@@ -115,7 +167,7 @@ const BoardPage = () => {
             <div className=""><h4 className="">Backlog</h4></div>
             <button type="" className="button-header"><TfiLayers /></button>
           </div>
-          {tasks.map((task, index) => (
+          {tasks?.backlog?.map((task, index) => (
             <TaskBox key={task.id} task={task} />
           ))}
           
@@ -130,6 +182,9 @@ const BoardPage = () => {
           
           </div>
           </div>
+          {tasks.todo.map((task) => (
+            <TaskBox key={task.id} task={task} />
+          ))}
         </div>
         <div className="section-box">
         <div className="hedaer-box">
@@ -144,6 +199,9 @@ const BoardPage = () => {
             <button type="" className="button-header"><TfiLayers /></button>
           </div>
           </div>
+          {tasks.completed.map((task) => (
+            <TaskBox key={task.id} task={task} />
+          ))}
         </div>
       </div>
       {
