@@ -227,3 +227,28 @@
 .assign-btn:hover {
     background-color: #ddd;
 }
+
+.dot1 {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  background-color: red;
+}
+.dot2 {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  background-color: yellow;
+}
+.dot3 {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  background-color: green;
+}

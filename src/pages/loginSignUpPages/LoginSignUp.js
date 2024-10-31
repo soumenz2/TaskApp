@@ -56,12 +56,12 @@ const LoginSignUp = () => {
         if (result.success) {
           dispatch(setToken(result.token));
         } else {
-          toast.error(result.message);
+          toast.error(result.msg);
         }
       } catch (error) {
-        setLoading(false); // Ensure loading is false on error
-        toast.error(error.message);
-        console.error('Error during login:', error);
+        setLoading(false); 
+      toast.error(error.response?.data?.msg || 'An error occurred during login');
+      console.error('Error during login:', error);
       }
     }
   });
@@ -95,11 +95,18 @@ const LoginSignUp = () => {
           setIsLogin(true);
         } else {
           toast.error(result.message);
+          console.error('Error during signup:', result.msg);
         }
-      } catch (error) {
-        setLoading(false); 
-        toast.error(error.message);
-        console.error('Error during signup:', error);
+      } catch (err) {
+        if (err.response) {
+          const errorMessage = err.response.data.msg;
+          toast.error(errorMessage)
+          console.log(errorMessage);
+         
+        } else {
+          
+          toast.error("Login failed")
+        }
       }
     }
   });

@@ -139,7 +139,7 @@ const handleSearchChange = (e) => {
               onClick={() => setPriority('high')}
             >
               <span
-                  className="dot"
+                  className="dot1"
                   
                 ></span>
               HIGH PRIORITY
@@ -150,7 +150,8 @@ const handleSearchChange = (e) => {
               onClick={() => setPriority('moderate')}
             >
               <span
-                  className="dot"
+                  className="dot2"
+
                   
                 ></span>
               MODERATE PRIORITY
@@ -161,7 +162,7 @@ const handleSearchChange = (e) => {
               onClick={() => setPriority('low')}
             >
               <span
-                  className="dot"
+                  className="dot3"
                   
                 ></span>
               LOW PRIORITY

@@ -5,11 +5,17 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import './TaskBox.css'; 
 import DeleteModal from '../ModalPage/DeleteModal';
 import UpdateTaskModal from '../ModalPage/UpdateTaskModal';
-
+import { useSelector} from "react-redux";
+import { jwtDecode } from 'jwt-decode'; 
+import { updateTaskStatus } from '../../api/apiClient';
 const TaskBox = ({ task }) => {
   const [checklistVisible, setChecklistVisible] = useState(false);
   const [isDeleteModalOpen,setDeleteModalOpen]=useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+  const token = useSelector((state) => state.user.tokenId);
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken._id;
+
   const OpenDeleteModal=()=>{
     setDeleteModalOpen(true)
   }
@@ -25,7 +31,7 @@ const TaskBox = ({ task }) => {
   };
 
 
-  // Toggle checklist visibility
+
   const toggleChecklist = () => {
     setChecklistVisible(!checklistVisible);
   };
@@ -49,14 +55,37 @@ const TaskBox = ({ task }) => {
     return `${day}${getOrdinalSuffix(day)} ${month}`;
 }
 const isDueDatePassed = new Date(task.dueDate) < new Date();
+
+const UpdateStatus=async(status)=>{
+    
+  const taskUpdateData = {
+  taskID: task.taskID, 
+  status:status
+  
+
+  };
+
+  try {
+      const result = await updateTaskStatus(taskUpdateData);
+      if (result.message) {
+        // Handle success or error message
+        console.log(result.message);
+      } else {
+        // Handle the updated task data
+        console.log('Task updated successfully:', result.task);
+      }
+  } catch (error) {
+    console.error('Error while updating task:', error);
+  }
+}
   return (
     <div className="task-box-container1">
         <div className="priority-header1">
             <div className="">
             <span
-                  className={`priority-label1 ${task.priority === 'HIGH PRIORITY' 
+                  className={`priority-label1 ${task.priority === 'high' 
                     ? 'high-priority1' 
-                    : task.priority === 'MODERATE PRIORITY' 
+                    : task.priority === 'moderate' 
                     ? 'medium-priority1' 
                     : 'low-priority1'}`}
                   
@@ -76,7 +105,10 @@ const isDueDatePassed = new Date(task.dueDate) < new Date();
 <ul className="dd-menu">
   <li onClick={openUpdateModal}>Edit</li>
   <li>Share</li>
-  <li className='delete-option1' onClick={OpenDeleteModal}> Delete</li>
+  {
+    userId===task.createdBy && (<li className='delete-option1' onClick={OpenDeleteModal} > Delete</li>)
+  }
+  
   
  
 </ul>
@@ -115,12 +147,12 @@ const isDueDatePassed = new Date(task.dueDate) < new Date();
 </span>
         <div className="task-status-container1">
           {task.statusOptions.map((status, index) => (
-            <span className="task-status1" key={index}>{status}</span>
+            <span className="task-status1" key={index} onClick={()=>UpdateStatus(status)}>{status}</span>
           ))}
         </div>
       </div>
       {
-        isDeleteModalOpen && <DeleteModal onCloseDeleteModal={onCloseDeleteModal} />
+        isDeleteModalOpen && <DeleteModal onCloseDeleteModal={onCloseDeleteModal} taskID={task.taskID}/>
       }
        {isUpdateModalOpen && <UpdateTaskModal onClose={onCloseUpdateModal} taskData={task} />}
     </div>

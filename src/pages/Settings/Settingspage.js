@@ -12,11 +12,13 @@ import './SettingsPage.css'
 import { updateUser } from '../../api/apiClient';
 import { useDispatch } from 'react-redux';
 import { clearToken } from '../../redux/userReducer';
+import { useNavigate } from "react-router-dom";
 
 const Settingspage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch=useDispatch()
+  const navigate = useNavigate();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -49,21 +51,23 @@ const Settingspage = () => {
           username: values.username,
           email: values.email,
           oldPassword: values.password, 
-          newPassword: values.confirmPassword 
+          newPassword: values.newPassword 
         };
   
         const response = await updateUser(userData); 
   
-        if (response.msg) {
-          toast.success(response.msg);
+        if (response.message) {
+          toast.success(response.message);
           console.log('User updated successfully:', response);
+          navigate("/");
           dispatch(clearToken())
+     
         } else {
           toast.error('Update failed');
         }
       } catch (err) {
         if (err.response) {
-          const errorMessage = err.response.data.msg;
+          const errorMessage = err.response.data.message;
           toast.error(errorMessage);
           console.log(errorMessage);
         } else {

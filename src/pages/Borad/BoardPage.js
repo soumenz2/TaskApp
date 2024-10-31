@@ -10,46 +10,33 @@ import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { FaLessThanEqual } from 'react-icons/fa';
 import AddPeopleModal from '../ModalPage/AddPeople';
 import { getTasks } from '../../api/apiClient';
+import { ToastContainer, toast } from "react-toastify";
 function getDate() {
   const today = new Date();
-  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const month = today.toLocaleString('default', { month: 'short' });
   const year = today.getFullYear();
-  const date = today.getDate();
-  return `${month}/${date}/${year}`;
-  
+
+  const getDaySuffix = (day) => {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+      case 1: return 'st';
+      case 2: return 'nd';
+      case 3: return 'rd';
+      default: return 'th';
+    }
+  };
+
+  return `${day}${getDaySuffix(day)} ${month}, ${year}`;
 }
-// const tasks = [
-//   {
-//     id: 1,
-//     priority: "HIGH PRIORITY",
-//     title: "Hero section",
-//     checklist: [
-//       { id: 1, text: "Task to be done", done: true },
-//       { id: 2, text: "Task to be done", done: false },
-//       { id: 3, text: "Task to be done ede lorem Ipsum is a Dummy text t", done: false },
-//     ],
-//     date: "Feb 10th",
-//     status: ["Progress", "To-Do", "Done"],
-//   },
-//   {
-//     id: 2,
-//     priority: "MODERATE PRIORITY",
-//     title: "Typography change",
-//     checklist: [
-//       { id: 1, text: "Task to be done", done: false },
-//       { id: 2, text: "Task to be done", done: false },
-//     ],
-//     date: "Feb 12th",
-//     status: ["To-Do"],
-//   },
-// ];
+
 
 
 const BoardPage = () => {
   const [currentDate, setCurrentDate] = useState(getDate());
   const [isTaskModalOpen,setIsTaskModalOpen]=useState(false)
   const [isAddPeopleModalOpen,setIsAddPeopleModalOpen]=useState(false)
-  const [tasks, setTasks] = useState({ todo: [], backLog: [], inProgress: [], done: [] });
+  const [tasks, setTasks] = useState({ todo: [], backlog: [], inProgress: [], done: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterValue, setFilterValue] = useState("WEEK"); 
@@ -119,6 +106,7 @@ const BoardPage = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="section1">
         <div className="">
           <h3>Welcome! Soumen</h3>
@@ -144,7 +132,7 @@ const BoardPage = () => {
         <label className="dropdown">
 
   <div className="dd-button">
-  This Week
+  {filterValue}
   </div>
 
   <input type="checkbox" className="dd-input" id="test" />
