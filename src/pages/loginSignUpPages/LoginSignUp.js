@@ -125,7 +125,7 @@ const LoginSignUp = () => {
       <div className="content-right">
         {
           isLogin ? (
-            <form className="form_container" onSubmit={loginformik.handleSubmit} method="POST">
+            <form className="form_container1" onSubmit={loginformik.handleSubmit} method="POST">
               <div className="title_container">
                 <p className="title">Login to your Account</p>
               </div>
@@ -192,7 +192,7 @@ const LoginSignUp = () => {
               </button>
             </form>
           ) : (
-            <form className="form_container" onSubmit={registerformik.handleSubmit} method="POST">
+            <form className="form_container1" onSubmit={registerformik.handleSubmit} method="POST">
               <div className="title_container">
                 <p className="title">Register a new Account</p>
               </div>

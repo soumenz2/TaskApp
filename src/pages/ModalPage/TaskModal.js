@@ -139,8 +139,8 @@ const TaskModal = ( { onClose, filterValue, fetchTasks } ) => {
           <label>Select Priority *</label>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'high' ? 'active' : '' }`}
-            onClick={() => setPriority( 'high' )}
+            className={`priority-btn ${ priority === 'HIGH PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'HIGH PRIORITY' )}
           >
             <span
               className="dot1"
@@ -150,8 +150,8 @@ const TaskModal = ( { onClose, filterValue, fetchTasks } ) => {
           </button>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'moderate' ? 'active' : '' }`}
-            onClick={() => setPriority( 'moderate' )}
+            className={`priority-btn ${ priority === 'MODERATE PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'MODERATE PRIORITY' )}
           >
             <span
               className="dot2"
@@ -162,8 +162,8 @@ const TaskModal = ( { onClose, filterValue, fetchTasks } ) => {
           </button>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'low' ? 'active' : '' }`}
-            onClick={() => setPriority( 'low' )}
+            className={`priority-btn ${ priority === 'LOW PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'LOW PRIORITY' )}
           >
             <span
               className="dot3"

@@ -179,6 +179,9 @@ const BoardPage = () => {
             <div className=""><h4 className="">In Progrss</h4></div>
             <button type="" className="button-header"><TfiLayers /></button>
           </div>
+          {tasks.inProgress.map( ( task ) => (
+            <TaskBox key={task.id} task={task} filterValue={filterValue} fetchTasks={fetchTasks} />
+          ) )}
         </div>
         <div className="section-box">
           <div className="hedaer-box">

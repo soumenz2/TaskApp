@@ -70,11 +70,11 @@ const TaskBox = ( { task, filterValue, fetchTasks } ) => {
     try {
       const result = await updateTaskStatus( taskUpdateData );
       if ( result.message ) {
-        // Handle success or error message
+        fetchTasks( filterValue )
         console.log( result.message );
       } else {
-        // Handle the updated task data
-        console.log( 'Task updated successfully:', result.task );
+       
+        console.log( 'Task not  updated ' );
       }
     } catch ( error ) {
       console.error( 'Error while updating task:', error );
