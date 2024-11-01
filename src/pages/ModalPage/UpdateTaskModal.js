@@ -140,22 +140,22 @@ const UpdateTaskModal = ( { taskData, onClose } ) => {
           <label>Select Priority *</label>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'high' ? 'active' : '' }`}
-            onClick={() => setPriority( 'high' )}
+            className={`priority-btn ${ priority === 'HIGH PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'HIGH PRIORITY' )}
           >
             HIGH PRIORITY
           </button>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'moderate' ? 'active' : '' }`}
-            onClick={() => setPriority( 'moderate' )}
+            className={`priority-btn ${ priority === 'MODERATE PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'MODERATE PRIORITY' )}
           >
             MODERATE PRIORITY
           </button>
           <button
             type="button"
-            className={`priority-btn ${ priority === 'low' ? 'active' : '' }`}
-            onClick={() => setPriority( 'low' )}
+            className={`priority-btn ${ priority === 'LOW PRIORITY' ? 'active' : '' }`}
+            onClick={() => setPriority( 'LOW PRIORITY' )}
           >
             LOW PRIORITY
           </button>

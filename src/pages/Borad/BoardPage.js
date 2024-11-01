@@ -11,6 +11,7 @@ import { FaLessThanEqual } from 'react-icons/fa';
 import AddPeopleModal from '../ModalPage/AddPeople';
 import { getTasks } from '../../api/apiClient';
 import { ToastContainer, toast } from "react-toastify";
+import { getuser } from '../../api/apiClient';
 function getDate() {
   const today = new Date();
   const day = today.getDate();
@@ -40,8 +41,16 @@ const BoardPage = () => {
   const [loading, setLoading] = useState( true );
   const [error, setError] = useState( null );
   const [filterValue, setFilterValue] = useState( "WEEK" );
+  const [username,setUserName]=useState('')
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await getuser();
+      setUserName(data.name);
+    };
 
+    fetchUserData();
+  }, []);
   const fetchTasks = async ( filter ) => {
     setLoading( true );
     try {
@@ -66,6 +75,13 @@ const BoardPage = () => {
       setLoading( false );
     }
   };
+  const fetchUser=async()=>{
+    try{
+
+    }catch(error){
+
+    }
+  }
 
   useEffect( () => {
     fetchTasks( filterValue );
@@ -89,13 +105,19 @@ const BoardPage = () => {
   };
 
   if ( loading ) {
-    return (
-      <div className="loading-overlay">
-        <div className="loading-container">
-          <p>Loading tasks...</p>
-          <div className="spinner"></div>
-        </div>
+    return (<div className="loading-overlay">
+      <div className="loading-container">
+        <p>Loading tasks...</p>
+        <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
       </div>
+    </div>
     );
   }
 
@@ -109,7 +131,7 @@ const BoardPage = () => {
       <ToastContainer />
       <div className="section1">
         <div className="">
-          <h3>Welcome! Soumen</h3>
+          <h3>Welcome! {username}</h3>
         </div>
         <div className="">
           <p>{currentDate}</p>
@@ -132,7 +154,8 @@ const BoardPage = () => {
           <label className="dropdown">
 
             <div className="dd-button">
-              {filterValue}
+              
+              {filterValue==="WEEK"?"This week":filterValue}
             </div>
 
             <input type="checkbox" className="dd-input" id="test" />

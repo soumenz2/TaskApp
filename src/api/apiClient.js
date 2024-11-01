@@ -247,3 +247,50 @@ export const updateTaskStatus = async (taskData) => {
     return error.response?.data || { message: 'An error occurred while updating the task' };
   }
 };
+
+export const getuser = async () => {
+  try {
+    const token = store.getState().user.tokenId;
+
+    if (!token) {
+      return { message: 'No token provided' };
+    }
+
+    const response = await apiClient.get(
+      '/getuser', 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Fetch Tasks Error:', error.message);
+    return error.response?.data || { message: 'An error occurred while fetching tasks' };
+  }
+};
+export const getTaskCounts = async () => {
+  try {
+    const token = store.getState().user.tokenId;
+
+    if (!token) {
+      return { message: 'No token provided' };
+    }
+
+    const response = await apiClient.get(
+      '/getTaskCounts', 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Fetch Tasks Error:', error.message);
+    return error.response?.data || { message: 'An error occurred while fetching analytics data' };
+  }
+};

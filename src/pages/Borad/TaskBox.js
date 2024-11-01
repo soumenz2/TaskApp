@@ -85,9 +85,9 @@ const TaskBox = ( { task, filterValue, fetchTasks } ) => {
       <div className="priority-header1">
         <div className="">
           <span
-            className={`priority-label1 ${ task.priority === 'high'
+            className={`priority-label1 ${ task.priority === 'HIGH PRIORITY'
               ? 'high-priority1'
-              : task.priority === 'moderate'
+              : task.priority === 'MODERATE PRIORITY'
                 ? 'medium-priority1'
                 : 'low-priority1' }`}
 
