@@ -54,7 +54,7 @@ const LoginSignUp = () => {
         const result = await login(values);
         setLoading(false); // Set loading to false
         if (result.success) {
-          dispatch(setToken(result.token));
+         
         } else {
           toast.error(result.msg);
         }

@@ -196,8 +196,9 @@ const UpdateTaskModal = ( { taskData, onClose } ) => {
 
         <div className="modal-footer">
           <div>
-            <label>Select Due Date *</label>
-            <div>{formatDate( dueDate )}</div>
+            {dueDate!=null && <label> Due Date *</label>}
+            
+            <div>{dueDate!=null && formatDate( dueDate )}</div>
           </div>
           <div>
             <button

@@ -75,13 +75,7 @@ const BoardPage = () => {
       setLoading( false );
     }
   };
-  const fetchUser=async()=>{
-    try{
 
-    }catch(error){
-
-    }
-  }
 
   useEffect( () => {
     fetchTasks( filterValue );
@@ -108,7 +102,7 @@ const BoardPage = () => {
     return (<div className="loading-overlay">
       <div className="loading-container">
         <p>Loading tasks...</p>
-        <div class="loader">
+        <div className="loader">
     <span></span>
     <span></span>
     <span></span>
