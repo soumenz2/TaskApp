@@ -232,7 +232,7 @@
 .dot1 {
   height: 10px;
   width: 10px;
-  border-radius: 1000%;
+  border-radius: 1000px;
   display: inline-block;
   margin-right: 8px;
   background-color: red;
@@ -240,7 +240,7 @@
 .dot2 {
   height: 10px;
   width: 10px;
-  border-radius: 1000%;
+  border-radius: 1000px;
   display: inline-block;
   margin-right: 8px;
   background-color: yellow;
@@ -248,7 +248,7 @@
 .dot3 {
   height: 10px;
   width: 10px;
-  border-radius: 500%;
+  border-radius: 1000px;
   display: inline-block;
   margin-right: 8px;
   background-color: green;

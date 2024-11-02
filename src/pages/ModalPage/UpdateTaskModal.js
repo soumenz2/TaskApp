@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { MdOutlineDeleteForever } from "react-icons/md";
 
-const UpdateTaskModal = ( { taskData, onClose } ) => {
+const UpdateTaskModal = ( { onClose , taskData} ) => {
   const [title, setTitle] = useState( '' );
   const [priority, setPriority] = useState( '' );
   const [checklist, setChecklist] = useState( [] );
@@ -16,7 +16,7 @@ const UpdateTaskModal = ( { taskData, onClose } ) => {
   const [isOpen, setIsOpen] = useState( false );
   const [searchTerm, setSearchTerm] = useState( '' );
 
-  // Fetch emails for assignee selection
+ 
   useEffect( () => {
     const fetchEmails = async () => {
       const response = await getEmail();
