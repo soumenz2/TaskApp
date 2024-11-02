@@ -1,23 +1,23 @@
 .task-box-container1 {
   background-color: white;
-  border-radius: 8px; /* Consistent border radius */
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px; /* Base padding */
-  margin-bottom: 20px; /* Space between task boxes */
-  transition: box-shadow 0.3s ease; /* Smooth shadow transition */
-  max-width: 100%; /* Ensure it does not overflow */
-  width: calc(100% - 32px); /* Responsive width with padding consideration */
+  padding: 16px; 
+  margin-bottom: 20px; 
+  transition: box-shadow 0.3s ease; 
+  max-width: 100%; 
+  width: calc(100% - 32px); 
 }
 
 .task-box-container1:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
 }
 
 .task-box-header1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px; /* Space below header */
+  margin-bottom: 10px; 
 }
 
 .priority-header1 {
@@ -25,6 +25,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px; 
+}
+.prioritybox{
+  display: flex;
+  align-items: center;
+  width: 10rem;
+
 }
 
 .priority-text1 {
@@ -44,183 +50,152 @@
   box-orient: vertical;
   -webkit-line-clamp: 2; 
   line-height: 1.2; 
-  position: relative; /* Required for absolute positioning of tooltip */
-  cursor: pointer; /* Pointer cursor to indicate hover */
+  position: relative; 
+  cursor: pointer;
 }
 
 .tooltip {
-  visibility: hidden; /* Hide the tooltip by default */
-  background-color: #fff; /* Background color for the tooltip */
-  border: 1px solid #ccc; /* Border around the tooltip */
-  padding: 5px; /* Padding for the tooltip */
-  position: absolute; /* Absolute positioning */
-  z-index: 10; /* Ensure it appears above other elements */
-  white-space: normal; /* Allow normal text wrapping */
-  max-width: 200px; /* Set a max width for the tooltip */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the tooltip */
-  left: 0; /* Position it directly under the title */
-  top: 100%; /* Position below the text */
-  margin-top: 5px; /* Space between text and tooltip */
-  transition: visibility 0s, opacity 0.2s ease-in-out; /* Transition for smooth appearance */
-  opacity: 0; /* Start with opacity 0 */
+  visibility: hidden; 
+  background-color: #fff; 
+  border: 1px solid #ccc;
+  padding: 5px; 
+  position: absolute; 
+  z-index: 10;
+  white-space: normal; 
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  left: 0; 
+  top: 100%; 
+  margin-top: 5px; 
+  transition: visibility 0s, opacity 0.2s ease-in-out;
+  opacity: 0;
 }
 
 .task-title1:hover .tooltip {
-  visibility: visible; /* Make tooltip visible on hover */
-  opacity: 1; /* Fade in the tooltip */
+  visibility: visible; 
+  opacity: 1; 
 }
 
 
 .task-box-icons1 {
   display: flex;
-  align-items: center; /* Center icons */
+  align-items: center;
 }
 
 .toggle-btn1 {
-  background: none; /* No background */
-  border: none; /* No border */
-  cursor: pointer; /* Pointer on hover */
-  font-size: 16px; /* Font size for buttons */
-  color: #6c757d; /* Button color */
+  background: none; 
+  border: none;
+  cursor: pointer;
+  font-size: 16px; 
+  color: #6c757d; 
 }
 
 .task-checklist1 {
-  margin-top: 10px; /* Space above checklist */
+  margin-top: 10px; 
 }
 
 .checklist-item1 {
-  display: flex; /* Flex for checklist items */
-  align-items: center; /* Center checklist items */
-  margin-bottom: 8px; /* Space below each item */
-  background-color: #f7f7f7; /* Background for checklist */
-  border-radius: 5px; /* Rounded corners */
-  padding: 8px; /* Padding for checklist items */
+  display: flex; 
+  align-items: center;
+  margin-bottom: 8px; 
+  background-color: #f7f7f7;
+  border-radius: 5px; 
+  padding: 8px;
 }
 
 .checklist-item1 input {
-  margin-right: 10px; /* Space between checkbox and label */
+  margin-right: 10px;
 }
 
 .task-footer1 {
-  display: flex; /* Flex for footer */
-  justify-content: space-between; /* Space between items */
-  align-items: center; /* Center items vertically */
-  margin-top: 15px; /* Space above footer */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-top: 15px; 
 }
 
 .task-date1 {
-  background-color: #f3eded; /* Background color for date */
-  padding: 5px 10px; /* Padding for date */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 12px; /* Font size for date */
-  color: rgb(8, 8, 8); /* Text color */
+  background-color: #f3eded; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  font-size: 12px; 
+  color: rgb(8, 8, 8); 
 }
 
 .past-due {
-  background-color: red; /* Red for past due */
-  color: white; /* White text on red */
+  background-color: red;
+  color: white; 
 }
 
 .task-status-container1 {
-  display: flex; /* Flex for status container */
+  display: flex; 
 }
 
 .task-status1 {
-  background-color: #e0e0e0; /* Background color for status */
-  padding: 4px 6px; /* Padding for status */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 10px; /* Font size for status */
-  margin-left: 5px; /* Space left of status */
-  cursor: pointer; /* Pointer on hover */
-  box-shadow: 0 4px 8px rgba(126, 122, 122, 0.1); /* Shadow */
-  max-width: fit-content; /* Fit to content */
-  display: inline-flex; /* Inline flex for status */
-  align-items: center; /* Center items */
-  justify-content: center; /* Center items */
+  background-color: #e0e0e0; 
+  padding: 4px 6px;
+  border-radius: 5px; 
+  font-size: 10px; 
+  margin-left: 5px; 
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(126, 122, 122, 0.1); 
+  max-width: fit-content; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; 
 }
 
 .priority-label1 {
-  height: 5px; /* Height for priority label */
-  width: 5px; /* Width for priority label */
-  border-radius: 50%; /* Circle */
-  display: inline-block; /* Inline block */
-  margin-right: 8px; /* Space right of label */
+  height: 5px; 
+  width: 5px; 
+  border-radius: 50%; 
+  display: inline-block; 
+  margin-right: 8px; 
+}
+.dd-menu1{
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type:none;
+  right:10px
 }
 
 .high-priority1 {
-  background-color: #ff4d4d; /* Red for high priority */
+  background-color: #ff4d4d;
 }
 
 .low-priority1 {
-  background-color: #28a745; /* Green for low priority */
+  background-color: #28a745; 
 }
 
-.medium-priority1 {
-  background-color: #faf606; /* Yellow for medium priority */
+.moderate-priority1 {
+  background-color: #faf606;
 }
-.dropdown {
-  position: relative;
-}
-
-.dd-button {
-  cursor: pointer;
- 
-}
-
-.dd-input {
-  display: none; 
-}
-
-.dd-menu {
-  display: none;
-  position: absolute;
-  top: 100%; /* Position it below the button */
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  min-width: 100px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-
-.dd-input:checked ~ .dd-menu {
-  display: block;
-}
-
-.dd-menu li {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.dd-menu li:hover {
-  background-color: #f0f0f0;
-}
-
-.delete-option1 {
-  color: #db0909; /* Red for delete option */
+.delete-option1{
+  color: red;
 }
 
 /* Responsive design for larger screens */
 @media (min-width: 768px) {
   .task-box-container1 {
-      padding: 20px; /* Increased padding on larger screens */
+      padding: 20px;
   }
 
   .task-title1 {
-      font-size: 20px; /* Larger title font size on larger screens */
+      font-size: 20px;
   }
 
   .toggle-btn1 {
-      font-size: 18px; /* Larger button font on larger screens */
+      font-size: 18px;
   }
 
   .priority-text1 {
-      font-size: 14px; /* Larger priority text on larger screens */
+      font-size: 14px; 
   }
 }
 

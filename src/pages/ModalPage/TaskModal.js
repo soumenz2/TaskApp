@@ -174,7 +174,7 @@ const TaskModal = ( { onClose, filterValue, fetchTasks } ) => {
         </div>
         {
           checklist.length > 0 ? (
-            <div className="dropdown" >
+            <div className="dropdown1" >
               <label htmlFor="assign-to">Assign to</label>
               <input
                 type="text"
